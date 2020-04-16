@@ -20,5 +20,7 @@ python app_size_analysis.py 参数1 参数2
 [Tips:处理结束之后，结果以html报表形式展示，查看路径是/Users/xiaoqiyingifelse/Desktop/AppSizeAnalysis/AppSizeAnalysis.html]
 
 # 如何获取LinkMap文件
-针对主工程配置打开LinkMap开关：Xcode->Project->Build Settings-> Search map -> 设置 Write Link Map Files 选项为YES（release、debug区分配置）
-编译工程之后会在指定路径生成LinkMap文件产物，默认是在/Users/xiaoyiqingifelse/Library/Developer/Xcode/DerivedData/xxx-cnwlggeskzjwiyejtomaplxmpnbd/Build/Intermediates.noindex/xxx.build/Debug-iphonesimulator/xxx.build/xxx-LinkMap-normal-x86_64.txt
+
+1、针对主工程配置打开LinkMap开关：Xcode->Project->Build Settings-> Search map -> 设置 Write Link Map Files 选项为YES（release、debug区分配置）
+
+2、编译之后会在指定路径生成LinkMap文件产物，默认是在/Users/xiaoyiqingifelse/Library/Developer/Xcode/DerivedData/xxx-cnwlggeskzjwiyejtomaplxmpnbd/Build/Intermediates.noindex/xxx.build/Debug-iphonesimulator/xxx.build/xxx-LinkMap-normal-x86_64.txt
