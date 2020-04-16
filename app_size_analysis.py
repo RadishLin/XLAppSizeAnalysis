@@ -11,15 +11,15 @@ import time
 
     分析APP安装包大小组成的脚本 支持Python3
     参数1: linkMap文件
-    参数1: -m是否按照组件modul输出分析结果， 可选 不传默认按照文件输出
+    参数2: -m是否按照组件model输出分析结果， 可选 不传默认按照文件输出
 
 """
 
 html_content = "<h2 align=center>App Size Analysis 数据</h2>" \
                "<table border='1px solid' " \
-               "style='border-collapse:collapse;table-layout:fixed;word-break:break-all;width: 50%;margin: 0 auto;'>" \
-               "<th>组件大小</th>" \
-               "<th>组件名称</th>"
+               "style='border-collapse:collapse;table-layout:fixed;word-break:break-all;width: 60%;margin: 0 auto;'>" \
+               "<th>组件名称</th>" \
+               "<th>组件大小</th>"
 
 
 def usage():
@@ -87,7 +87,7 @@ def create_association_modul_results_data(symbol_array):
     """
     生成分析APP大小的结果 单位：modul组件
     """
-    results = ["组件大小\t组件名称\r"]
+    results = ["组件名称\t组件大小\r"]
     total_size = 0
     modul_map = {}
     for symbol in symbol_array:
@@ -122,7 +122,7 @@ def create_file_results_data(symbol_array):
     """
     生成分析APP大小的结果 单位：file
     """
-    results = ["类大小\t类名称\r"]
+    results = ["类名称\t类大小\r"]
     total_size = 0
     for symbol in symbol_array:
         results.append(format_symbol(symbol))
@@ -148,10 +148,10 @@ def format_symbol(symbol):
         size = "%.2fM" % (symbol.size / 1024.0 / 1024.0)
     else:
         size = "%.1fK" % (symbol.size / 1024.0)
-    symbol_info = "%s\t%s" % (size, file_name)
+    symbol_info = "%s\t%s" % (file_name, size)
     global html_content
-    html_content += "<td style=text-align:center>" + size + "</td>"
     html_content += "<td style=text-align:center>" + file_name + "</td>"
+    html_content += "<td style=text-align:center>" + size + "</td>"
     html_content += "<tr>"
     return symbol_info
 
@@ -193,8 +193,8 @@ if __name__ == '__main__':
 
     symbol_result_array = []
     # 对所有symbol对象进行格式化处理
+    html_content += "<tr>"
     if len(sys.argv) >= 3 and sys.argv[2] == "-m":
-        html_content += "<tr>"
         symbol_result_array = create_association_modul_results_data(symbol_array)
     else:
         symbol_result_array = create_file_results_data(symbol_array)
