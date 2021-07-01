@@ -17,9 +17,7 @@ import time
 
 html_content = "<h2 align=center>App Size Analysis 数据</h2>" \
                "<table border='1px solid' " \
-               "style='border-collapse:collapse;table-layout:fixed;word-break:break-all;width: 60%;margin: 0 auto;'>" \
-               "<th>组件名称</th>" \
-               "<th>组件大小</th>"
+               "style='border-collapse:collapse;table-layout:fixed;word-break:break-all;width: 60%;margin: 0 auto;'>"
 
 
 def usage():
@@ -109,11 +107,14 @@ def create_association_modul_results_data(symbol_array):
             modul_map[symbol.file] = symbol
     sorted_symbols = sorted(modul_map.values(), key=lambda s: s.size, reverse=True)
 
+    global html_content
+    html_content += "<td style=text-align:center>" + "组件名称" + "</td>"
+    html_content += "<td style=text-align:center>" + "组件大小" + "</td>"
+    html_content += "<tr>"
     for symbol in sorted_symbols:
         results.append(format_symbol(symbol))
         total_size += symbol.size
     results.append("总大小: %.2fM" % (total_size / 1024.0 / 1024.0))
-    global html_content
     html_content += "<td colspan=2 style=text-align:center>" + "总大小: %.2fM" % (total_size / 1024.0 / 1024.0) + "</td>"
     return results
 
@@ -124,11 +125,14 @@ def create_file_results_data(symbol_array):
     """
     results = ["类名称\t类大小\r"]
     total_size = 0
+    global html_content
+    html_content += "<td style=text-align:center>" + "类名称" + "</td>"
+    html_content += "<td style=text-align:center>" + "类大小" + "</td>"
+    html_content += "<tr>"
     for symbol in symbol_array:
         results.append(format_symbol(symbol))
         total_size += symbol.size
     results.append("总大小: %.2fM" % (total_size / 1024.0 / 1024.0))
-    global html_content
     html_content += "<td colspan=2 style=text-align:center>" + "总大小: %.2fM" % (total_size / 1024.0 / 1024.0) + "</td>"
     return results
 
@@ -141,9 +145,7 @@ def format_symbol(symbol):
     size = ""
     names = symbol.file.split('/')
     if len(names) > 0:
-        temp = names[len(names) - 1]
-        location = temp.find('(')
-        file_name = temp[location + 1:-2]
+        file_name = names[len(names) - 1]
     if symbol.size / 1024.0 / 1024.0 > 1:
         size = "%.2fM" % (symbol.size / 1024.0 / 1024.0)
     else:
